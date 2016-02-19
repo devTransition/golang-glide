@@ -1,4 +1,4 @@
-FROM golang:1.5
+FROM golang:1.6
 MAINTAINER Nicolas Wild <nwild79@gmail.com>
 
 ENV GLIDE_VERSION 0.8.3
@@ -15,10 +15,10 @@ RUN curl -fsSL "$GLIDE_DOWNLOAD_URL" -o glide.zip \
 	&& rm -rf linux-amd64 \
 	&& rm glide.zip
 
+RUN wget https://github.com/Yelp/dumb-init/releases/download/v1.0.0/dumb-init_1.0.0_amd64.deb
+RUN dpkg -i dumb-init_*.deb
 
 WORKDIR /go/src/app
-
-ENV GO15VENDOREXPERIMENT 1
 
 ENV GLIDE_HOME /go/src/app
 
@@ -26,6 +26,5 @@ ADD run.sh /
 RUN chmod +x /run.sh
 
 # COPY app /go/src/app
-# ENTRYPOINT ["/bin/bash"]
 
-ENTRYPOINT ["/run.sh"]
+ENTRYPOINT ["dumb-init", "/run.sh"]
