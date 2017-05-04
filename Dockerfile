@@ -1,7 +1,7 @@
-FROM golang:1.6
+FROM golang:1.8
 MAINTAINER Nicolas Wild <nwild79@gmail.com>
 
-ENV GLIDE_VERSION 0.11.0
+ENV GLIDE_VERSION v0.12.3
 
 RUN apt-get update \
  	&& apt-get install -y unzip --no-install-recommends \
